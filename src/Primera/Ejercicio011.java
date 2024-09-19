@@ -4,10 +4,6 @@ Multiplicacion mediante suma
  */
 package Primera;
 
-/**
- *
- * @author anton
- */
 public class Ejercicio011 {
     
 }

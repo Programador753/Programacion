@@ -11,9 +11,6 @@ public class Ejercicio020 {
         int primerElemento = datos[0];
         for (int i = 1; i < datos.length; i++) 
             datos[i - 1] = datos[i];
-        
-        datos[datos.length - 1] = primerElemento;
-        for (int i = 0; i < datos.length; i++) 
-            System.out.println(datos[i]);
+        datos[datos.length - 1] = primerElemento;  
     }
 }

@@ -1,6 +1,9 @@
 /*
-Implementar una funcion que sume los elementos de un vector unidimensional de enteros y devuelva un entero con la suma
-Desde el programa principal llamaremos a esta funcion una vez por cada empleado y mostraremos su nombre y la suma de sus salarios.
+Implementar una función que sume los elementos de un vector 
+unidimensional de enteros y devuelva un entero con la suma.
+Desde el programa principal llamaremos a esta función una 
+vez por cada empleado y mostraremos su nombre y la suma de sus 
+salarios.
  */
 package Primera;
 
@@ -16,10 +19,10 @@ public class Ejercicio052 {
         for(int i = 0; i < empleados.length; i++)
             System.out.printf("El empleado %s ha cobrado %d €\n",empleados[i], suma(salarios[i]));
     }
-    public static int suma(int v1[]){
+    public static int suma(int vector[]){
         int acum = 0;
-        for(int i = 0; i < v1.length; i++)
-                acum += v1[i];
+        for(int i = 0; i < vector.length; i++)
+                acum += vector[i];
         return acum;
     }
 }

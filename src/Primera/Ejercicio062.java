@@ -1,12 +1,14 @@
 /*
-Sustituir caracter por cadena de caracteres.
+Implementar un metodo que reciba una cadena de caracteres y 
+sustituya en ella un caracter por otra cadena de carcteres.
+Lo haremos sobre una cadena de caracteres auxiliar.
  */
 package Primera;
 
 public class Ejercicio062 {
     public static void main(String arg[]){
         char frase[] = {'E', 'n', ' ', 'u', 'n', ' ', 'l', 'u', 'g', 'a', 'r', ' ', 'd', 'e', ' ', 'L', 'a', ' ', 'M', 'a', 'n', 'c', 'h', 'a'};
-        char sustituir = 'a';
+        char sustituir = 'n';
         char sustituto[] = {'X', 'X', 'V'};
         
         System.out.println(modificar(frase, sustituir, sustituto));

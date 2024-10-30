@@ -1,5 +1,6 @@
 /*
-desplazar los caracteres 2 posiciones a la derecha para poder cambiar la n por la cadena de caracteres.
+Sustituir un caracter por una cadena de caracteres, sin utilizar 
+una cadena auxiliar.
  */
 package Primera;
 
@@ -13,10 +14,28 @@ public class Ejercicio063 {
         for(int i = 0; i < frase.length; i++)
             frase2[i] = frase[i];
         
-        modificar(frase2, sustituir, sustituto);
+        //modificar(frase2, sustituir, sustituto);
         
-        System.out.println(frase2);
+        int longitud = frase.length;
+        int i = 0;
+        while(i < longitud)
+        {
+            if(frase2[i] == sustituir)
+            {
+                frase2[i] = sustituto[0];
+                for(int j=1; j < sustituto.length; j++)
+                {
+                    for(int x = longitud-1 ; x > i; x--)
+                        frase2[x+1] = frase2[x];
+                    longitud++;
+                    frase2[i+j] = sustituto[j];
+                }
+            }
+            i++;
+        }  
+    System.out.println(frase2);            
     }
+    
     public static void modificar(char cadena[], char sustituir, char sustituto[])
     {
         for (int i = 0; i < cadena.length; i++)
@@ -27,12 +46,13 @@ public class Ejercicio063 {
                 {
                     cadena[j + (sustituto.length-1)] = cadena[j];
                 }
-                for (int j = 0; j < sustituto.length; j++) 
+                for (int x = 0; x < sustituto.length; x++) 
                 {
-                    cadena[i + j] = sustituto[j];
+                    cadena[i + x] = sustituto[x];
                 }
                 i += 2; 
             }
         }
-    }
+    System.out.println(cadena);
+    }       
 }

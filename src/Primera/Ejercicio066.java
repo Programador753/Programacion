@@ -15,8 +15,8 @@ public class Ejercicio066 {
         while(fin < frase.length){
             while(frase[fin] != ' ')
                 fin++;
-            despDerecha(frase, fin, inicio);
-            despIzquierda(frase, fin, inicio);
+            //despDerecha(frase, fin, inicio); // Desplazar derecha
+            despIzquierda(frase, fin, inicio); // Desplazar a izquierda
             inicio = fin = fin+1;
         }
         System.out.println(frase);

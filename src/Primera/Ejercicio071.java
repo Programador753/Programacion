@@ -12,39 +12,30 @@ public class Ejercicio071 {
         char cadena2[] = new char[150];
         
         int k = 0; 
-  
-        for (int i = 0; i < frase.length; i++) 
+
+        for(int i = 0; i < frase.length ; i++)
         {
-            // Verificamos si hay una coincidencia con subcad1 
-            if (i <= (frase.length - subcad1.length) && frase[i] == subcad1[0])
+            if(subcad1[0] == frase[i])
             {
-                int j = 1; // inicializamos y delcaramos j  =  1 porque ya hemos verificado la posicion 0.
-                while (j < subcad1.length && frase[i + j] == subcad1[j]) 
-                // Mientras j sea menor que la longitud de la subcadena a buscar y coincidan los caracteres incrementamos j. 
+                int j = 1;
+                while((j < subcad1.length) && (frase[i + j] == subcad1[j]))
                 {
                     j++;
                 }
-                if (j == subcad1.length) // Si hay una coincidencia, añade la subcadena2
+                if (j == subcad1.length)
                 {
-                    for (int z = 0; z < subcad2.length; z++) // Recorremos la subcadena 
-                    {
-                        cadena2[k++] = subcad2[z]; // Incrementamos k mientras recorremos la subcadena 
-                    }
-                    i += subcad1.length - 1; // Avanza el índice i
+                    for(int z = 0; z < subcad2.length; z++)
+                        cadena2[k++] = subcad2[z]; // k++ es post incrementativo porque primero se usa el valor y luego se incrementa el valor.
+                    i += (subcad1.length-1); // Modifico el indice i 
                 }
-                else 
-                {
-                    // Si no coincide, copia el carácter actual y incrementamos k.
-                    cadena2[k++] = frase[i];
-                }
+                else
+                    cadena2[k++] = frase[i]; // Cargo el valor correspondiente de frase en cadena2 y incremento k.
             }
             else
             {
-                // Si el primer carácter no coincide, copia el carácter actual y incrementamos k.
-                cadena2[k++] = frase[i];
-            }
+                cadena2[k++] = frase[i]; // Cargo el valor correspondiente de frase en cadena2 si no coincide el primer caracter
+            } 
         }
-
         System.out.println(cadena2); // Imprimo la cadena resultante.
     }
 }

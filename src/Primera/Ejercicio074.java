@@ -8,8 +8,9 @@ public class Ejercicio074 {
         char frase[] = {'E', 'n', ' ', 'u', 'n', ' ', 'l', 'u', 'g', 'a', 'r', ' ', 'E', 'n', ' ', 'L', 'a', ' ', 'M', 'a', 'n', 'c', 'h', 'a'};
         char subcad1[] = {'E', 'n', ' '};
         int longitud = frase.length;
+        int i = 0;
         
-        for(int i = 0; i < frase.length ; i++)
+        while(i < longitud - subcad1.length)
         {
             if(subcad1[0] == frase[i])
             {
@@ -26,6 +27,7 @@ public class Ejercicio074 {
                         longitud--;
                     }
             }
+            i++;
         }
         System.out.println(frase);
     }

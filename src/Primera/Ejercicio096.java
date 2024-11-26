@@ -5,17 +5,12 @@ package Primera;
 
 public class Ejercicio096 {
     public static void main (String arg[]){
-        int numero = 256809;
-        
-        binario(numero);
-        System.out.println();
+        binario(19);
     }
     public static void binario (int numero){
-        if(numero/2 == 0)
-            System.out.print(numero%2);
-        else{
+        if(numero > 0){
             binario(numero/2);
-            System.out.print(numero%2);
-        }  
+            System.out.printf("%d",numero%2);
+        }      
     }   
 }

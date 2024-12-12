@@ -1,7 +1,7 @@
 package Segunda.Ejercicio01;
 
 public class Casa {
-    private String direccion; // Atributo Dirección con private para encapsular
+    private String direccion; // Atributo Dirección con private para encapsular impidiendo que puedas acceder desde otras clases.
     private double numMetros; // Atributo Numero Metros
     private String material; // Atributo Material
     private int numHabitaciones; // Atributo Numero Habitaciones
@@ -60,8 +60,8 @@ public class Casa {
          numHabitaciones = Habitaciones;
     }     
     
-    public void getDatos()
+    public void mostrar()
     {
-        
+        System.out.printf("Dirección : %s, número de metros : %.2f, material : %s, número de habitaciones : %d\n", direccion, numMetros, material, numHabitaciones);
     }
 }

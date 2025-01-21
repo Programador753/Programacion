@@ -2,6 +2,7 @@ package Segunda.Ejercicio10;
 
 import java.awt.Canvas; // Importo clase Canvas
 import java.awt.Event; // Importo clase Event
+import java.awt.Graphics; // Importo clase Graphics
 
 public class MiCanvas extends Canvas{ // Clase MiCanvas extendida de Canvas
     DosPuntos actual; // Objeto de la clase DosPuntos 
@@ -16,6 +17,11 @@ public class MiCanvas extends Canvas{ // Clase MiCanvas extendida de Canvas
     }
     public void setTipo(int tipo) { // Metodo para asignar un valor a la variable de clase tipo
         this.tipo = tipo; // Se asigna el valor de tipo a la variable de clase tipo
+    }
+    public void paint(Graphics g){ // Metodo para pintar en el canvas
+        if(actual != null){ // Si el objeto actual es diferente de nulo
+            actual.dibujar(g); // Se llama al metodo dibujar del objeto actual con el objeto Graphics
+        }
     }
     public boolean mouseDown(Event ev, int x, int y){ // Metodo para cuando se presiona el boton del mouse 
         actual = new DosPuntos(x, y, tipo); // Se crea un objeto de la clase DosPuntos con los valores de x, y y el objeto Graphics

@@ -25,20 +25,21 @@ public class DosPuntos {
         this(0, 0, LINEA); // Se llama al metodo constructor con los valores de inicioX, inicioY, finX, finY y tipo para poder asignar los valores a las variables de clase inicioX, inicioY, finX, finY y tipo
     }
     
-    public void dibujar(Graphics g) { 
+    public void dibujar(Graphics g) {
+        int anchura, altura; // Variables de tipo entero para almacenar la anchura y altura de la figura
+        anchura = Math.abs(finX - inicioX); // Se calcula la anchura de la figura
+        altura = Math.abs(finY - inicioY); // Se calcula la altura de la figura
         switch(tipo){ // Se evalua la variable de clase tipo
             case LINEA: // Si el valor de tipo es igual a LINEA
-                g.drawLine(inicioX, inicioY, finX, finY); // Se dibuja una linea con los valores de inicioX, inicioY, finX y finY
-                break; // Se rompe el bucle
+                g.drawLine(inicioX, inicioY, finX, finY); // Se dibuja una linea con los valores de inicioX, inicioY, finX y finY  
+                break; // Se sale del bucle
             case OVALO: // Si el valor de tipo es igual a OVALO
-                g.drawOval(inicioX, inicioY, finX, finY); // Se dibuja un ovalo con los valores de inicioX, inicioY, finX y finY
-                break; // Se rompe el bucle
+                g.drawOval(inicioX, inicioY, anchura, altura); // Se dibuja un ovalo con los valores de inicioX, inicioY, anchura y altura
+                break; // Se sale del bucle
             case RECTANGULO: // Si el valor de tipo es igual a RECTANGULO
-                g.drawRect(inicioX, inicioY, finX, finY); // Se dibuja un rectangulo con los valores de inicioX, inicioY, finX y finY
-                break; // Se rompe el bucle
-            default: // Si no se cumple ninguna de las condiciones anteriores
+                g.drawRect(inicioX, inicioY, anchura, altura); // Se dibuja un rectangulo con los valores de inicioX, inicioY, anchura y altura
         }
+
     }
-    
-    
+
 }

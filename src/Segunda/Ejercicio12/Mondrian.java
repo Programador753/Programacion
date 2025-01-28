@@ -28,7 +28,7 @@ public class Mondrian extends Applet implements Runnable{
         animacion.start(); // Inicializo el objeto animacion
     }
     public void paint(Graphics g){ // Metodo paint
-        noseve.setColor(Color.BLACK); // Color blanco
+        noseve.setColor(Color.BLACK); // Color negro
         noseve.fillRect(0, 0, 300, 300); // Dibuja un rectangulo
         noseve.setColor(Color.yellow); // Color amarillo
         noseve.fillRect(0, 0, 90, 90); // Dibuja un rectangulo
@@ -52,35 +52,38 @@ public class Mondrian extends Applet implements Runnable{
     @Override
     public void run() { // Metodo run
         do{ // Bucle do while 
-            switch (direccion) { // Estructura switch para agujas del reloj
-                case ARRIBA: // Caso ARRIBA
-                    posY -= 10; // Decrementa la variable posY
-                    if(posY < 0) // Condicion si posY es menor a 0
-                        direccion = DERECHA; // Cambia la direccion a DERECHA
-                    break; // Rompe el caso
-                case ABAJO: // Caso ABAJO
-                    posY += 10; // Incrementa la variable posY
-                    if(posY > 210) // Condicion si posY es mayor a 210
-                        direccion = IZQUIERDA; // Cambia la direccion a IZQUIERDA
-                    break; // Rompe el caso
-                case IZQUIERDA: // Caso IZQUIERDA
-                    posX -= 10; // Decrementa la variable posX
-                    if(posX < 0) // Condicion si posX es menor a 0
-                        direccion = ARRIBA; // Cambia la direccion a ARRIBA
-                    break; // Rompe el caso
-                case DERECHA: // Caso DERECHA
-                    posX += 10; // Incrementa la variable posX
-                    if(posX > 190) // Condicion si posX es mayor a 190
-                        direccion = ABAJO; // Cambia la direccion a ABAJO
-                    break; // Rompe el caso
-                default:
-                    break;
-            }
+            actualizar();
             repaint(); // Llama al metodo repaint
             try { // Manejo de excepciones 
                 Thread.sleep(100); // Tiempo de espera
             } catch (InterruptedException ex) {} // Excepcion a manejar 
         }while(true); // Bucle infinito 
+    }
+    private void actualizar() {
+        switch (direccion) { // Estructura switch para agujas del reloj
+            case ARRIBA: // Caso ARRIBA
+                posY -= 10; // Decrementa la variable posY
+                if(posY < 0) // Condicion si posY es menor a 0
+                    direccion = DERECHA; // Cambia la direccion a DERECHA
+                break; // Rompe el caso
+            case ABAJO: // Caso ABAJO
+                posY += 10; // Incrementa la variable posY
+                if(posY > 210) // Condicion si posY es mayor a 210
+                    direccion = IZQUIERDA; // Cambia la direccion a IZQUIERDA
+                break; // Rompe el caso
+            case IZQUIERDA: // Caso IZQUIERDA
+                posX -= 10; // Decrementa la variable posX
+                if(posX < 0) // Condicion si posX es menor a 0
+                    direccion = ARRIBA; // Cambia la direccion a ARRIBA
+                break; // Rompe el caso
+            case DERECHA: // Caso DERECHA
+                posX += 10; // Incrementa la variable posX
+                if(posX > 190) // Condicion si posX es mayor a 190
+                    direccion = ABAJO; // Cambia la direccion a ABAJO
+                break; // Rompe el caso
+            default:
+                break;
+        }
     }
 
 }

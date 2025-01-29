@@ -3,12 +3,13 @@ package Segunda.Ejercicio12;
 
 import java.applet.Applet; // Importo la clase Applet
 import java.awt.Color; // Importo la clase Color
-import java.awt.Graphics; // Importo la clase Graphics
+import java.awt.Graphics; // Importo la clase Graphics 
 import java.awt.Image; // Importo la clase Image
 
 public class Mondrian2 extends Applet implements Runnable{ // Clase Mondrian2 que hereda de la clase Applet e implementa la interfaz Runnable
     Thread animacion;
     Image imagen;
+    
     Graphics noseve;
     Rectangulo rectangulos[];
     int posicionesX[] = {0, 250, 80, 80, 100, 80, 200, 0, 200}; // Posiciones en X 

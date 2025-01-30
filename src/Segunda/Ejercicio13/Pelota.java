@@ -13,7 +13,6 @@ public class Pelota extends Rectangle{ // Heredamos de la clase Rectangle
     Color color; // Color de la pelota
     Color colores[] = {Color.yellow, Color.blue, Color.lightGray, Color.red, Color.magenta}; // Colores de la pelota
     
-
     public Pelota() {
         super((int)(Math.random()*250), (int)(Math.random()*250), 0, 0); // Creamos un rectangulo con valores aleatorios
         int radio = ((int)(Math.random()*30)) + 20; // Creamos un radio aleatorio
@@ -39,4 +38,5 @@ public class Pelota extends Rectangle{ // Heredamos de la clase Rectangle
             y += velY; // Sumamos la velocidad en Y a la posicion en Y
         }
     }
+    
 }

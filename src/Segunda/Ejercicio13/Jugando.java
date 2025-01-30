@@ -2,8 +2,10 @@ package Segunda.Ejercicio13;
 
 import java.applet.Applet; // Importo la clase Applet
 import java.awt.Color; // Importo la clase Color
+import java.awt.Event;
 import java.awt.Graphics; // Importo la clase Graphics 
 import java.awt.Image; // Importo la clase Image
+import java.awt.event.MouseEvent;
 import java.util.List; // Importo la clase List
 import java.util.ArrayList; // Importo la clase ArrayList
 
@@ -48,8 +50,16 @@ public class Jugando extends Applet implements Runnable{ // Clase jugando que he
             }
             repaint(); // Repinto la pelota
             try { // Manejo de excepciones 
-                Thread.sleep(50); // Tiempo de espera
+                Thread.sleep(30); // Tiempo de espera
             } catch (InterruptedException ex) {} // Excepcion a manejar 
         }while(true); // Bucle infinito 
+    }
+
+    // Metodo para borrar pelota si hacemos click sobre ella
+    public boolean mouseDown(Event ev, int x, int y){
+        for(int i = 0; i < pelotas.size(); i++) // Bucle for para crear 10 pelotas
+            if(pelotas.get(i).contains(x, y)) // Si la pelota contiene las coordenadas
+                pelotas.remove(i); // Borro la pelota
+        return true; // Devuelve verdadero
     }
 }

@@ -1,9 +1,5 @@
 package Segunda.Ejercicio13;
 
-// Hacer metodo actualizar y que cuando choque que rebote y cambio de sentido de la velocidad en ambos ejes, crear objeto de la clase pelota , instanciar , pintar, metodo run llamada a actualizar y pintar
-// Hacer metodo paint para pintar la pelota 
-
-
 import java.awt.Color; // Importamos la clase Color
 import java.awt.Graphics; // Importamos la clase Rectangle
 import java.awt.Rectangle; // Importamos la clase Graphics

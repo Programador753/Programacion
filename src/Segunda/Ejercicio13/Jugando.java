@@ -2,10 +2,9 @@ package Segunda.Ejercicio13;
 
 import java.applet.Applet; // Importo la clase Applet
 import java.awt.Color; // Importo la clase Color
-import java.awt.Event;
+import java.awt.Event; // Importo clase event
 import java.awt.Graphics; // Importo la clase Graphics 
 import java.awt.Image; // Importo la clase Image
-import java.awt.event.MouseEvent;
 import java.util.List; // Importo la clase List
 import java.util.ArrayList; // Importo la clase ArrayList
 
@@ -15,15 +14,17 @@ public class Jugando extends Applet implements Runnable{ // Clase jugando que he
     Graphics noseve; // Creo un objeto de la clase Graphics 
     List<Pelota> pelotas; // Creo un objeto de la clase Pelota 
     
+    @Override
     public void init(){ // Metodo init para vida del applet
         imagen = this.createImage(400, 400); // Creo una imagen
         noseve = imagen.getGraphics(); // Obtiene los graficos de la imagen
-        pelotas = new ArrayList<Pelota>(); // Instancio un objeto de la clase Pelota
+        pelotas = new ArrayList<>(); // Instancio un objeto de la clase Pelota
         for(int i = 0; i < 10; i++){ // Bucle for para crear 10 pelotas
             pelotas.add(new Pelota()); // Añado una pelota a la lista
         }
         this.setSize(400, 400); // Asigno un tamaño al applet
     }
+    @Override
     public void update(Graphics g){ // Metodo update para actualizar
         paint(g); // Llamo al metodo paint
     }
@@ -56,10 +57,11 @@ public class Jugando extends Applet implements Runnable{ // Clase jugando que he
     }
 
     // Metodo para borrar pelota si hacemos click sobre ella
+    @Override
     public boolean mouseDown(Event ev, int x, int y){
         for(int i = 0; i < pelotas.size(); i++) // Bucle for para crear 10 pelotas
             if(pelotas.get(i).contains(x, y)) // Si la pelota contiene las coordenadas
                 pelotas.remove(i); // Borro la pelota
         return true; // Devuelve verdadero
-    }
+    } 
 }

@@ -28,8 +28,6 @@ public class Pelota extends Rectangle{ // Heredamos de la clase Rectangle
         if (y <= 0 || y >= (300 - height)) // Si la pelota llega al final superior o inferior
             velY = -velY; // Cambiamos la direccion en Y
         
-        
-        
     }
 
     public boolean intersects(Rectangle r){ // Metodo intersects para comprobar si choca con un objeto

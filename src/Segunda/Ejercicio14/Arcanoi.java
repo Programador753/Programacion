@@ -36,8 +36,8 @@ public class Arcanoi extends Applet implements Runnable { // Clase Arcanoi exten
     }
     @Override
     public void update(Graphics g) { // Metodo update para actualizar
-        noseve.setColor(Color.black); // Asigno color blanco
-        noseve.fillRect(0, 0, 300, 300); // Relleno el fondo de blanco
+        noseve.setColor(Color.black); // Asigno color negro
+        noseve.fillRect(0, 0, 300, 300); // Relleno el fondo de negro
         paint(noseve); // Llamo al metodo paint
         raqueta.paint(noseve); // Llamo al metodo paint de la clase Raqueta
         pelota.paint(noseve); // Llamo al metodo paint de la clase Pelota
@@ -50,7 +50,6 @@ public class Arcanoi extends Applet implements Runnable { // Clase Arcanoi exten
             animacion = new Thread(this); // Creo un nuevo hilo
             animacion.start(); // Inicio el hilo
         }
-
     }
 
     @Override

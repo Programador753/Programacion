@@ -31,8 +31,6 @@ public class Pajaro extends Rectangle{ // Clase Pajaro extendida de la clase Rec
             y = 0; // Si no, la posicion y es 0
     }
     
-    public boolean colision(Rectangle r){ // Metodo para comprobar colision
-        return this.intersects(r); // Devolvemos si hay colision
-    }
+
 
 }

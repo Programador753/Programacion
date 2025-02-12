@@ -2,9 +2,9 @@ package Segunda.Ejercicio15;
 
 import java.applet.Applet; // Importo clase Applet
 import java.awt.Color; // Importo clase Graphics
-import java.awt.Event; // Importo clase Image
+import java.awt.Event; // Importo clase Event
 import java.awt.Graphics; // Importo clase Color
-import java.awt.Image; // Importo clase Event
+import java.awt.Image; // Importo clase Image
 import java.util.ArrayList; // Importo clase ArrayList
 
 

@@ -1,40 +1,29 @@
 package Segunda.Ejercicio16;
 
-import java.awt.Color; // Importo clase Color
-import java.awt.Graphics; // Importo clase Graphics
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 
 
-public class Nave {
-    public static final int VELX = 5; // Creo una constante VELX con valor 5
-    public static final int VELY = 5; // Creo una constante VELY con valor 5
-    int x; // Creo una variable x
-    int y; // Creo una variable y
-
-    public Nave(int x, int y) { // Constructor de la clase Nave
-        this.x += x += 10; // Inicializamos la x
-        this.y = y; // Inicializamos la y
-
+public class Nave extends Rectangle{
+    Color colores[] = {Color.red, Color.blue, Color.green, Color.white, Color.orange, Color.yellow, Color.pink, Color.cyan}; // Creo un array de colores
+    Color color;
+    int velX;
+    
+    public Nave(){
+        super((int)(Math.random()*250), (int)(Math.random()*100), 40, 15);
+        color = colores[(int)(Math.random()*colores.length)];
+        velX = (int)(Math.random()*5) + 1;
     }
-
-    public void mover(int direccion) { // Metodo para mover la nave
-        if (direccion == Marcianitos.DERECHA) { // Si la direccion es DERECHA
-            x += VELX; // Aumentamos la x
-        } else if (direccion == Marcianitos.IZQUIERDA) { // Si la direccion es IZQUIERDA
-            x -= VELX; // Disminuimos la x
-        }
+    public void paint(Graphics g){
+        g.setColor(color);
+        g.fillRect(x, y, width, height);
     }
-
-    public void paint(Graphics g) { // Metodo para pintar la nave
-        g.setColor(Color.RED); // Establecemos el color
-        g.fillRect(x, y, 50, 50); // Dibujamos un rectangulo
-    }
-
-    public void update() { // Metodo para actualizar
-        y += VELY; // Aumentamos la y
+    public void update(){
+        x += velX;
+        if((x <= 0) || (x >=(300-width)))
+            velX = -velX;
+        
     }
     
-    public boolean colision(Bala bala) { // Metodo para comprobar colision
-        return bala.getBounds().intersects(x, y, 50, 50); // Devolvemos si hay colision
-    }   
-
 }

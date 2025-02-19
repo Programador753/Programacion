@@ -1,30 +1,23 @@
 package Segunda.Ejercicio16;
 
 import java.awt.Rectangle; // Importamos la clase Color
-
+import java.awt.Color;
+import java.awt.Graphics;
 
 
 public class Bala extends Rectangle{ // Heredamos clase rectangle
 
-    public Bala(int x, int y) { // Constructor de la clase Bala
-        super(x, y, 5, 10); // Llamamos al constructor de la clase Rectangle
+    public static final int VELY = -5;
+    public Bala(int PosX){
+        super(PosX, 260, 5, 10);
+        
     }
-
-    public void update() { // Metodo update para actualizar
-        y -= 5; // Disminuimos la y
+    public void paint(Graphics g){
+        g.setColor(Color.RED);
+        g.fillRect(x, y, width, height);
     }
-
-    public Rectangle getBounds() { // Metodo getBounds para obtener los limites
-        return new Rectangle(x, y, 5, 10); // Devolvemos un rectangulo
+    public boolean update(){
+        y += VELY;
+        return (y < -20);
     }
-
-    public void mover() { // Metodo mover para mover la bala
-        y -= 5; // Disminuimos la y
-    }
-
-    public void paint(java.awt.Graphics g) { // Metodo paint para dibujar
-        g.setColor(java.awt.Color.WHITE); // Asignamos el color
-        g.fillRect(x, y, 5, 10); // Dibujamos la bala
-    }
-    
 }

@@ -18,7 +18,7 @@ public class Columna{ // clase Columna formada por 2 rectangulos separados por u
 
     }
     public void paint(Graphics g){ // Metodo paint de la clase Columna
-        g.setColor(Color.RED); // Establezco el color verde
+        g.setColor(Color.RED); // Establezco el color rojo
         g.fillRect(rect1.x, rect1.y, rect1.width, rect1.height); // Dibujo el primer rectangulo de la columna
         g.fillRect(rect2.x, rect2.y, rect2.width, rect2.height); // Dibujo el segundo rectangulo de la columna
         

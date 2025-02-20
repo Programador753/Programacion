@@ -7,7 +7,7 @@ import java.awt.Rectangle; // Importo clase Rectangle
 
 public class Dinosaurio extends Rectangle{ // Clase Dinosaurio extendida de rectangle
     public static final int TOPE = 170; // Variable para el tope del dinosaurio
-    public int velY = -1; // Variable para la velocidad en Y del dinosaurio
+    public int velY = -2; // Variable para la velocidad en Y del dinosaurio
     private  boolean saltando = false; // Variable booleana para saber si el dinosaurio esta saltando
     
     public Dinosaurio() { // Constructor de la clase dinosaurio

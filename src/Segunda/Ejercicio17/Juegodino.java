@@ -6,6 +6,7 @@ import java.awt.Event; // Importamos la clase Event
 import java.awt.Graphics; // Importamos la clase Graphics
 import java.awt.Image; // Importamos la clase Image
 import java.util.ArrayList; // Importo clase ArrayList
+import java.util.ConcurrentModificationException; // Importo clase para control de la excepcion
 
 
 public class Juegodino extends Applet implements Runnable {
@@ -14,10 +15,11 @@ public class Juegodino extends Applet implements Runnable {
     Image imagen; // Imagen para animar 
     Graphics noseve; // Objeto de la clase Graphics
     Dinosaurio dinosaurio; // Objeto de la clase dinosaurio
-    ArrayList<Obstaculo> obstaculos; // Creo un objeto de la clase Columna
+    ArrayList<Obstaculo> obstaculos; // Creo un objeto de la clase Obstaculo
+    int tiempoAleatorio = (int)(Math.random()*2000)+2000; // Tiempo aleatorio
     
     boolean continua = true; // Variable booleana para saber si el juego continua
-    int contador = 0; // Contador para saber cuando crear una nueva nave
+    int contador = 0; // Contador para nuevo obstaculo 
     
     public void init(){  // Metodo init para inicializar el applet
         imagen = this.createImage(300, 300); // Creo una imagen de 300x300
@@ -56,18 +58,19 @@ public class Juegodino extends Applet implements Runnable {
         do{ // Bucle do while para que se ejecute el juego
             dinosaurio.actualizar(); // LLamo a actualizar de dinosaurio.
             contador += TIEMPO; // Sumo el tiempo al contador 
+            tiempoAleatorio = (int)(Math.random()*2000)+2000; // Calculo tiempo aleatorio
             
-            if(contador >= 7000){ // Si el contador es mayor o igual a 3000
+            if(contador >= tiempoAleatorio){ // Si el contador es mayor o igual a 3000
                 obstaculos.add(new Obstaculo()); // Añado un nuevo obstaculo
                 contador = 0; // Pongo el contador a 0
             }
-            for(Obstaculo o : obstaculos){ // Bucle for each para recorrer los obstaculos
-                o.update(); // Llamo al metodo actualizar de obstaculo
-            }
-
-            if(!obstaculos.isEmpty()) // Compruebo si la columna esta vacia)
-                if(obstaculos.get(0).rect1.x <= -50) // Si la columna llega al final del applet
-                    obstaculos.remove(0); // Elimino el obstáculo
+        
+            try{ 
+                for(Obstaculo obstaculo : obstaculos) // Recorro obstaculos
+                    if(obstaculo.update()) // LLamo a update de obstaculo
+                        obstaculos.remove(obstaculo); // Elimino el obstáculo        
+            }catch(ConcurrentModificationException e){} // Manejo de excepciones
+            
             
             continua = !dinosaurio.colision(obstaculos.get(0)); // Continua es falso
             

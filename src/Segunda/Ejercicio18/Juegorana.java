@@ -43,7 +43,7 @@ public class Juegorana extends Applet implements Runnable {
         noseve.fillRect(0, 50, 580, 200); // Pinto la linea
         noseve.setColor(Color.WHITE); // color linea
         noseve.drawLine(0, 149, 500, 149); // Pinto la linea
-        rana.paint(noseve); // Pinto la ran
+        rana.paint(noseve); // Pinto la rana
         
         if(!continua) noseve.drawString("GAME OVER", 120, 140); // Si continua es false pinto GAME OVER
         g.drawImage(imagen, 0, 0, this); // Dibujo la imagen en el applet

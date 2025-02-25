@@ -7,8 +7,9 @@ import java.awt.Rectangle; // Importo clase rectangulo
 
 public class Coche extends Rectangle{
     static final Color colores[] = {Color.red, Color.blue, Color.green, Color.black, Color.orange, Color.MAGENTA, Color.pink, Color.cyan}; // Creo un array de colores
-    Color color;
-    int velX; 
+    Color color; // Color del coche
+    int velX;  // Velocidad del coche 
+    
     
     
 }

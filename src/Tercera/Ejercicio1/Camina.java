@@ -14,6 +14,7 @@ public class Camina extends Applet implements Runnable {
     Image imagen; // Imagen para animar 
     Graphics noseve; // Objeto de la clase Graphics
     Image fotogramas[] []; // Imagenes para la animacion
+    String lugares[] = {"Guerrillero/g", "Hampon/h", "Vaquero/v"}; // Array de lugares
 
     
     boolean continua = true; // Variable booleana para saber si el juego continua
@@ -22,11 +23,10 @@ public class Camina extends Applet implements Runnable {
     public void init(){  // Metodo init para inicializar el applet
         imagen = this.createImage(500, 300); // Creo una imagen de 500x300
         noseve = imagen.getGraphics(); // Asigno la imagen a noseve 
-        fotogramas = new Image[4][4]; // Creo un array de 4x4 para los fotogramas
-
-        for(int i = 0; i < 4; i++){ // Bucle para recorrer las filas
-            for(int j = 0; j < 4; j++){ // Bucle para recorrer las columnas
-                fotogramas[i][j] = getImage(getCodeBase(), "fotograma" + i + j + ".gif"); // Asigno a cada posicion del array una imagen
+        fotogramas = new Image[3][4]; // Creo un array de 4x4 para los fotogramas
+        for(int i = 0; i < 3; i++){ // Bucle para recorrer el array de lugares
+            for(int j = 0; j < 4; j++){ // Bucle para recorrer el array de lugares
+                fotogramas[i][j] = getImage(getCodeBase(), lugares[i] + j + ".gif"); // Asigno las imagenes a los fotogramas
             }
         }
 
@@ -45,7 +45,7 @@ public class Camina extends Applet implements Runnable {
     public void paint(Graphics g){ // Metodo paint que recibe un objeto de la clase Graphics 
         noseve.setColor(Color.BLACK); // Fondo de color negro
         noseve.fillRect(0, 0, 300, 300); // Pinto rectangulo 300 * 300
-
+        noseve.drawImage(fotogramas[2][2], 0, 0, 200, 250, this);
         g.drawImage(imagen, 0, 0, this);
     }
     

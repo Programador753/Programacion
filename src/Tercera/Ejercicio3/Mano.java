@@ -25,6 +25,7 @@ public class Mano {
     public void anadirCarta(Carta carta){
         cartas.add(carta);
     }
+    
 
     // Metodo para calcular el valor de la mano del jugador en el blackjack Comprueba si hay un as en la mano para sumar 11 o 1 segun convenga
     public int getValor(){

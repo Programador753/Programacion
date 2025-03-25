@@ -25,4 +25,17 @@ public class Mano {
     public void anadirCarta(Carta carta){
         cartas.add(carta);
     }
+    
+
+    // Metodo para calcular el valor de la mano del jugador en el blackjack Comprueba si hay un as en la mano para sumar 11 o 1 segun convenga
+    public int getValor(){
+        int valor = 0;
+        boolean hayAs = false;
+        for(Carta carta : cartas){
+            valor += carta.getValor();
+            if(carta.getValor() == 1) hayAs = true;
+        }
+        if(hayAs && valor + 10 <= 21) valor += 10;
+        return valor;
+    }
 }

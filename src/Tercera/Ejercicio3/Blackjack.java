@@ -50,7 +50,7 @@ public class BlackJack extends Applet implements Runnable {
 
         panel.add(boton1);
         panel.add(boton2);
-        this.add("North", panel);
+        this.add("South", panel);
         this.resize(700, 500);
 
     }
@@ -92,17 +92,18 @@ public class BlackJack extends Applet implements Runnable {
             repaint();
             return true;
         }
-        if (ev.id == Event.WINDOW_DESTROY) {
-            System.exit(0);
-            return true;
-        } else if (ev.id == Event.ACTION_EVENT) {
+         else if (ev.id == Event.ACTION_EVENT) {
             if (ev.target instanceof Button) {
                 if (ev.arg.equals("Otra carta")) {
                     jugador.anadirCarta(baraja.sacarcarta());
+                    
                     repaint();
                     return true;
                 } else if (ev.arg.equals("Paso")) {
-                    crupier.anadirCarta(baraja.sacarcarta());
+                    while (crupier.getValor() < 17) {
+                        crupier.anadirCarta(baraja.sacarcarta());
+                    }
+                    
                     repaint();
                     return true;
                 }
@@ -111,4 +112,6 @@ public class BlackJack extends Applet implements Runnable {
         return false;
     }
 }
+
+
 

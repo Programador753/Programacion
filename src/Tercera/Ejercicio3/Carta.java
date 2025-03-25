@@ -22,6 +22,10 @@ public class Carta {
         g.drawImage(imagen, posX, posY,ANCHURA,ALTURA, ap);
     }
 
+    public int getValor() {
+        return valor;
+    }
+
     public int getPosX() {
         return posX;
     }

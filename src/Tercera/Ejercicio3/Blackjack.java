@@ -1,52 +1,114 @@
 package Tercera.Ejercicio3;
 
-
 import java.applet.Applet;
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Label;
+import java.awt.Panel;
 import java.awt.Rectangle;
+import java.awt.TextField;
 
-public class Blackjack extends Applet{
-    public static final int NUMCARTAS= 52;
+public class BlackJack extends Applet implements Runnable {
+
+    public static final int TIEMPO = 50;
+    public static final int NUMCARTAS = 52;
     public static final int CPP = 13;
     Image imagenes[];
-    String palos[] = {"_of_hearts.png", "_of_diamonds.png", "_of_clubs.png", "_of_spades.png"};
-
     Image imagen;
     Graphics noseve;
     Rectangle tablero[][];
+    Baraja baraja;
+    Mano crupier;
+    Mano jugador;
+    String palos[] = {"clubs", "diamonds", "hearts", "spades"};
+    Button boton1 = new Button("Otra carta");
+    Button boton2 = new Button("Paso");
+    Panel panel = new Panel();
+    TextField apuesta;
 
-    public void init(){
+    public void init() {
         imagen = this.createImage(700, 500);
         noseve = imagen.getGraphics();
         imagenes = new Image[NUMCARTAS];
-       
-        
-        for(int i=0; i < NUMCARTAS; i++){ // Cargamos las imagenes
-            imagenes[i] = getImage(getCodeBase(), "Tercera/Ejercicio3/Cartas/" + ((i%CPP) +1) + palos[i/CPP]);
+
+        for (int i = 0; i < NUMCARTAS; i++) {
+            imagenes[i] = getImage(getCodeBase(), "Tercera/Ejercicio3/Cartas/" + (i % CPP) + "_of_" + palos[i / CPP] + ".png");
         }
-            
-        this.setSize(700, 500);
+
+        baraja = new Baraja(imagenes);
+        crupier = new Mano(50);
+        jugador = new Mano(300);
+        Panel primerPanel = new Panel();
+        Label etiqueta = new Label("Introduce tu apuesta : ", Label.RIGHT);
+        apuesta = new TextField("", 10);
+        primerPanel.add(etiqueta);
+        primerPanel.add(apuesta);
+        this.add("North", primerPanel);
+
+        panel.add(boton1);
+        panel.add(boton2);
+        this.add("North", panel);
+        this.resize(700, 500);
+
     }
-    public void update(Graphics g){
+
+    public void update(Graphics g) {
         paint(g);
     }
-    public void paint(Graphics g){
+
+    public void paint(Graphics g) {
+
         noseve.setColor(Color.BLACK);
         noseve.fillRect(0, 0, 700, 500);
 
-        for(int i=0; i < NUMCARTAS; i++){
-            noseve.drawImage(imagenes[i], (i%CPP)*50, (i/CPP)*100, this);
-        }
+        crupier.paint(noseve, this);
+        jugador.paint(noseve, this);
 
-        
         g.drawImage(imagen, 0, 0, this);
+
     }
-    public boolean mouseDown(Event evt, int x, int y){
-       
-        return true;
+
+    public void run() {
+        do {
+
+            repaint();
+
+            try {
+                Thread.sleep(TIEMPO);
+            } catch (InterruptedException e) {
+            }
+        } while (true);
     }
-    
+
+    public boolean action(Event ev, Object obj) {
+        if (ev.target instanceof TextField) {
+            apuesta.setEditable(false);
+            crupier.anadirCarta(baraja.sacarcarta());
+            jugador.anadirCarta(baraja.sacarcarta());
+            jugador.anadirCarta(baraja.sacarcarta());
+            repaint();
+            return true;
+        }
+        if (ev.id == Event.WINDOW_DESTROY) {
+            System.exit(0);
+            return true;
+        } else if (ev.id == Event.ACTION_EVENT) {
+            if (ev.target instanceof Button) {
+                if (ev.arg.equals("Otra carta")) {
+                    jugador.anadirCarta(baraja.sacarcarta());
+                    repaint();
+                    return true;
+                } else if (ev.arg.equals("Paso")) {
+                    crupier.anadirCarta(baraja.sacarcarta());
+                    repaint();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
+

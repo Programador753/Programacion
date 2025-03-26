@@ -10,8 +10,8 @@ public class Baraja {
     ArrayList<Carta> cartas;
     public Baraja(Image[] imgs){
         cartas = new ArrayList<Carta>();
-        for(int i = 0; i < BlackJack.NUMCARTAS;i++)
-            cartas.add(new Carta((i%BlackJack.CPP)+1,imgs[i]));
+        for(int i = 0; i < Blackjack.NUMCARTAS;i++)
+            cartas.add(new Carta((i%Blackjack.CPP)+1,imgs[i]));
             Collections.shuffle(cartas);
     }
     public Carta sacarcarta(){

@@ -11,8 +11,7 @@ import java.awt.Panel;
 import java.awt.Rectangle;
 import java.awt.TextField;
 
-public class BlackJack extends Applet implements Runnable {
-
+public class Blackjack extends Applet implements Runnable {
     public static final int TIEMPO = 50;
     public static final int NUMCARTAS = 52;
     public static final int CPP = 13;

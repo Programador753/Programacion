@@ -2,11 +2,14 @@ package Tercera.Ejercicio4;
 
 
 import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class Tablero extends Applet{
     public static final int TAM = 5; 
@@ -15,10 +18,19 @@ public class Tablero extends Applet{
     Image imagenes [][];
     Lugar lugar [][];
     Point blanco; // Coordenadas del espacio en blanco
+    AudioClip error, acierto, exito; // Sonidos de error y acierto
+
 
     public void init() {
         imagen = this.createImage(700, 500);
         noseve = imagen.getGraphics();
+
+        try {
+            error = getAudioClip(new URL(getCodeBase(), "Tercera/Ejercicio4/sonidos/error.wav")); // Cargamos el sonido de error
+            acierto = getAudioClip(new URL(getCodeBase(), "Tercera/Ejercicio4/sonidos/correct.wav")); // Cargamos el sonido de acierto
+            exito = getAudioClip(new URL(getCodeBase(), "Tercera/Ejercicio4/sonidos/exito.wav")); // Cargamos el sonido de exito
+        } catch (MalformedURLException e) {};
+        
         
         imagenes = new Image[TAM][TAM]; // Instancio el vector de imagenes
         // Cargamos las imagenes en el vector
@@ -60,8 +72,36 @@ public class Tablero extends Applet{
 
     }
 
+    public boolean mover(Point click) {
+        Point desplazamiento, hasta;
+        desplazamiento = new Point(delta(click.x, blanco.x), delta(click.y, blanco.y)); // Calculo el desplazamiento.
+        if((desplazamiento.x == 0) && ( desplazamiento.y == 0)) 
+            return false;
+        if((desplazamiento.x != 0) && ( desplazamiento.y != 0))
+            return false;
+
+        // Cargo hasta con la posicion a la que se va a mover la pieza
+        hasta = new Point(click.x + desplazamiento.x, click.y + desplazamiento.y); // Calculo la posicion a la que se va a mover la pieza
+        
+
+        return true; // Si no se ha movido, devuelvo true
+    }
+
+
+
+
+    public int delta(int a, int b){ // Funcion para comprobas si es posible mover la pieza
+        if(a == b) return 0; // Si son iguales devuelve 0
+        else return ((b-a)/Math.abs(b-a)); // Devuelve -1 o 1 dependiendo de si a es menor o mayor que b
+    }
+
     public boolean mouseDown(Event ev, int x, int y){
         Point click;
+        click = new Point(x / Lugar.DIM , y / Lugar.DIM ); // Calculo la posicion del click en el tablero
+        if(mover(click))
+            acierto.play(); // Si no se puede mover, reproduzco el sonido de error
+        else
+            error.play(); // Si se puede mover, reproduzco el sonido de acierto
         return true;
     }
     

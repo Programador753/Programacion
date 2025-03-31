@@ -19,7 +19,7 @@ public class Tablero extends Applet{
     Lugar lugar [][];
     Point blanco; // Coordenadas del espacio en blanco
     AudioClip error, acierto, exito; // Sonidos de error y acierto
-
+    
 
     public void init() {
         imagen = this.createImage(700, 500);
@@ -44,7 +44,7 @@ public class Tablero extends Applet{
         // Cargamos los lugares en el vector
         for (int i = 0; i < TAM; i++) {
             for (int j = 0; j < TAM; j++) {
-                lugar[i][j] = new Lugar(imagenes[i][j], ((i * TAM) + j));
+                lugar[i][j] = new Lugar(imagenes[j][i], ((i * TAM) + j));
             }
         }
 
@@ -67,8 +67,10 @@ public class Tablero extends Applet{
                 lugar[i][j].paint(noseve, this, i * Lugar.DIM, j * Lugar.DIM);
             }
         }
-       
+
         g.drawImage(imagen, 0, 0, this);
+
+        
 
     }
 
@@ -82,12 +84,17 @@ public class Tablero extends Applet{
 
         // Cargo hasta con la posicion a la que se va a mover la pieza
         hasta = new Point(click.x + desplazamiento.x, click.y + desplazamiento.y); // Calculo la posicion a la que se va a mover la pieza
+        if(!(blanco.x == hasta.x && blanco.y == hasta.y)) // Si el espacio en blanco es el mismo que el de la pieza, no se puede mover
+            mover(hasta); // Muevo la pieza al espacio en blanco
+        lugar[blanco.x][blanco.y].setImagen(lugar[click.x][click.y].getImagen()); // Muevo la pieza al espacio en blanco
+        lugar[blanco.x][blanco.y].valor = lugar[click.x][click.y].valor; // Muevo el valor de la pieza al espacio en blanco
+        lugar[click.x][click.y].setImagen(null); // Dejo el espacio en blanco vacio
+        lugar[click.x][click.y].valor = 24; // Dejo el valor de la pieza en el espacio en blanco 
+        blanco = click; // Actualizo la posicion del espacio en blanco
         
-
+        
         return true; // Si no se ha movido, devuelvo true
     }
-
-
 
 
     public int delta(int a, int b){ // Funcion para comprobas si es posible mover la pieza
@@ -99,15 +106,17 @@ public class Tablero extends Applet{
         Point click;
         click = new Point(x / Lugar.DIM , y / Lugar.DIM ); // Calculo la posicion del click en el tablero
         if(mover(click))
+        {
             acierto.play(); // Si no se puede mover, reproduzco el sonido de error
+            repaint();
+        }
         else
             error.play(); // Si se puede mover, reproduzco el sonido de acierto
         return true;
     }
     
     public boolean action(Event ev, Object obj){
-        
-        
+        // Boton para desordenar el tablero
         return true;
     }
 

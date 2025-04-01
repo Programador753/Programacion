@@ -3,13 +3,16 @@ package Tercera.Ejercicio4;
 
 import java.applet.Applet;
 import java.applet.AudioClip;
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Panel;
 import java.awt.Point;
 import java.net.MalformedURLException;
 import java.net.URL;
+
 
 public class Tablero extends Applet{
     public static final int TAM = 5; 
@@ -19,11 +22,17 @@ public class Tablero extends Applet{
     Lugar lugar [][];
     Point blanco; // Coordenadas del espacio en blanco
     AudioClip error, acierto, exito; // Sonidos de error y acierto
-    
+    Button boton1 = new Button("Desordenar"); // Boton para desordenar el tablero
+    Panel panel = new Panel(); // Panel para el boton
 
     public void init() {
         imagen = this.createImage(700, 500);
         noseve = imagen.getGraphics();
+        this.add("South", panel); // Añadimos el panel al applet
+        panel.add(boton1); // Añadimos el boton al panel
+
+
+
 
         try {
             error = getAudioClip(new URL(getCodeBase(), "Tercera/Ejercicio4/sonidos/error.wav")); // Cargamos el sonido de error
@@ -40,6 +49,7 @@ public class Tablero extends Applet{
             }
         }
         
+
         lugar = new Lugar[TAM][TAM]; // Instancio el vector de lugares(piezas del juego)
         // Cargamos los lugares en el vector
         for (int i = 0; i < TAM; i++) {
@@ -61,16 +71,15 @@ public class Tablero extends Applet{
     public void paint(Graphics g) {
         noseve.setColor(Color.BLACK);
         noseve.fillRect(0, 0, 700, 500);
+
         
         for (int i = 0; i < TAM; i++) {
             for (int j = 0; j < TAM; j++) {
                 lugar[i][j].paint(noseve, this, i * Lugar.DIM, j * Lugar.DIM);
             }
         }
-
         g.drawImage(imagen, 0, 0, this);
 
-        
 
     }
 
@@ -114,11 +123,24 @@ public class Tablero extends Applet{
             error.play(); // Si se puede mover, reproduzco el sonido de acierto
         return true;
     }
-    
-    public boolean action(Event ev, Object obj){
-        // Boton para desordenar el tablero
+
+    // Metodo para mezclar las piezas del tablero al pulsar el boton "Desordenar" 
+
+    public boolean action(Event ev, Object obj) {
+        if (ev.target instanceof Button) {
+            if (ev.arg.equals("Desordenar")) {
+                for (int i = 0; i < 100; i++) { // Mezclo las piezas 100 veces
+                    int x = (int) (Math.random() * TAM); // Genero un numero aleatorio entre 0 y TAM
+                    int y = (int) (Math.random() * TAM); // Genero un numero aleatorio entre 0 y TAM
+                    mover(new Point(x, y)); // Muevo la pieza al espacio en blanco
+                }
+                exito.play(); // Reproduzco el sonido de exito
+                repaint(); // Actualizo el tablero
+            }
+        }
         return true;
     }
+    
 
 }
 

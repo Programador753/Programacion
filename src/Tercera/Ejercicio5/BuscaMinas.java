@@ -45,14 +45,14 @@ public class BuscaMinas extends Applet{
             casillas[x][y].setAlrededor(-1); // Marca la casilla como mina
         }
 
-        // Calcula el número de minas alrededor de cada casilla
-        for (int i = 0; i < DIM; i++){
-            for (int j = 0; j < DIM; j++){
+        // Calcula el número de minas alrededor de cada casilla 
+        for (int i = 0; i < DIM; i++){ // Recorre todas las filas
+            for (int j = 0; j < DIM; j++){ // Recorre todas las casillas 
                 if (casillas[i][j].getAlrededor() != -1){ // Si no es una mina
                     int alrededor = 0; // Inicializa el contador de minas alrededor
-                    for (int k = -1; k <= 1; k++){
-                        for (int l = -1; l <= 1; l++){
-                            if ((i + k >= 0) && (i + k < DIM) && (j + l >= 0) && (j + l < DIM)){
+                    for (int k = -1; k <= 1; k++){ // Recorre las casillas adyacentes 
+                        for (int l = -1; l <= 1; l++){ // Recorre las casillas adyacentes 
+                            if ((i + k >= 0) && (i + k < DIM) && (j + l >= 0) && (j + l < DIM)){ // Verifica que no se salga del tablero y que no sea la misma casilla
                                 if (casillas[i + k][j + l].getAlrededor() == -1){ // Si hay una mina alrededor
                                     alrededor++; // Incrementa el contador
                                 }

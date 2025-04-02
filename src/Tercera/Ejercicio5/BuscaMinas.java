@@ -7,12 +7,15 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 
+
+
 public class BuscaMinas extends Applet{
     public static final int DIM = 10; // Dimensiones del tablero
     Image imagen; // Imagen del tablero
     Graphics noseve; // Gráficos para la imagen
     Image mina; // Imagen de la mina
     Image reverso; // Imagen del reverso de la mina
+    Image bandera; // Imagen de la bandera
     Casilla casillas[][]; // Matriz de casillas del tablero
     
 
@@ -23,6 +26,7 @@ public class BuscaMinas extends Applet{
 
         mina = getImage(getCodeBase(), "Tercera/Ejercicio5/Imagenes/mina.png"); // Carga la imagen de la mina
         reverso = getImage(getCodeBase(), "Tercera/Ejercicio5/Imagenes/casilla.png"); // Carga la imagen del reverso de la mina
+        bandera = getImage(getCodeBase(), "Tercera/Ejercicio5/Imagenes/bandera.png"); // Carga la imagen de la bandera
 
      
         casillas = new Casilla[DIM][DIM]; // Inicializa la matriz de casillas
@@ -32,26 +36,52 @@ public class BuscaMinas extends Applet{
             }
         }
 
-        // Situamos las minas en el tablero de forma aleatoria
-        for (int i = 0; i < 10; i++){
-            int x = (int)(Math.random() * DIM); // Genera una posición aleatoria en el eje X
-            int y = (int)(Math.random() * DIM); // Genera una posición aleatoria en el eje Y
-            casillas[x][y].setMina(mina); // Asigna la imagen de la mina a la casilla correspondiente
-            casillas[x][y].setTapada(true); // Mantiene la mina tapada
+        int resultados[] = obtenerAleatorio(); // Obtiene las posiciones aleatorias de las minas
 
-            // Incrementa el contador de minas alrededor de las casillas adyacentes
-            for (int i2 = -1; i2 <= 1; i2++){
-                for (int j2 = -1; j2 <= 1; j2++){
-                    if ((x + i2 >= 0) && (x + i2 < DIM) && (y + j2 >= 0) && (y + j2 < DIM)){
-                        casillas[x + i2][y + j2].setAlrededor(casillas[x + i2][y + j2].getAlrededor() + 1); // Incrementa el contador de minas alrededor
+        for (int i = 0; i < DIM; i++){
+            int x = resultados[i] / DIM; // Calcula la fila de la mina
+            int y = resultados[i] % DIM; // Calcula la columna de la mina
+            casillas[x][y].setMina(mina); // Establece la imagen de la mina en la casilla correspondiente
+            casillas[x][y].setAlrededor(-1); // Marca la casilla como mina
+        }
+
+        // Calcula el número de minas alrededor de cada casilla
+        for (int i = 0; i < DIM; i++){
+            for (int j = 0; j < DIM; j++){
+                if (casillas[i][j].getAlrededor() != -1){ // Si no es una mina
+                    int alrededor = 0; // Inicializa el contador de minas alrededor
+                    for (int k = -1; k <= 1; k++){
+                        for (int l = -1; l <= 1; l++){
+                            if ((i + k >= 0) && (i + k < DIM) && (j + l >= 0) && (j + l < DIM)){
+                                if (casillas[i + k][j + l].getAlrededor() == -1){ // Si hay una mina alrededor
+                                    alrededor++; // Incrementa el contador
+                                }
+                            }
+                        }
                     }
+                    casillas[i][j].setAlrededor(alrededor); // Establece el número de minas alrededor en la casilla
                 }
             }
-            
         }
+
 
         // Establece el tamaño del applet
         this.setSize(400, 500); // Establece el tamaño del applet
+    }
+
+    private int[] obtenerAleatorio() {
+        // Situamos las minas en el tablero de forma aleatoria
+        int resultados[] = new int[DIM ]; // Array para almacenar las posiciones de las minas
+        int vector[] = new int[DIM * DIM]; // Array para almacenar las posiciones de las minas
+        for (int i = 0; i < (DIM * DIM); i++){
+            vector[i] = i; // Inicializa el array con los índices
+        }
+        for(int i = 0; i < DIM; i++){
+            int aleatorio = (int)(Math.random() * (DIM * DIM - i)); // Genera un número aleatorio
+            resultados[i] = vector[aleatorio]; // Almacena la posición de la mina
+            vector[aleatorio] = vector[DIM * DIM - i - 1]; // Reemplaza la posición en el array
+        }
+        return resultados;
     }
 
     public void update(Graphics g){
@@ -67,21 +97,26 @@ public class BuscaMinas extends Applet{
                 casillas[i][j].paint(noseve, this); // Dibuja cada casilla en el tablero
             }
         }
-
-
         g.drawImage(imagen, 0, 0, this); // Dibuja la imagen del tablero en el applet
     }
 
-    public boolean mouseDown(Event ev, int x, int y){
-        // Recorre la matriz de casillas para verificar si se ha hecho clic en alguna de ellas
+    // Método para manejar eventos de ratón para descubrir casillas y colocar banderas
+    public boolean mouseDown(Event e, int x, int y) {
         for (int i = 0; i < DIM; i++){
             for (int j = 0; j < DIM; j++){
-                if (casillas[i][j].contains(x, y)){ // Verifica si la posición del clic está dentro de la casilla
-                    casillas[i][j].setTapada(false); // Desbloquea la casilla
-                    repaint(); // Vuelve a dibujar el applet
+                if (casillas[i][j].contains(x, y)){ // Verifica si el clic está dentro de la casilla
+                    if ((e.modifiers & Event.META_MASK) != 0) { // Click derecho
+                        // Coloca una bandera en la casilla
+                        casillas[i][j].setBandera(bandera);
+                    } else { // Click izquierdo
+                        // Descubre la casilla
+                        casillas[i][j].setTapada(false);
+                    }
+                    break; // Salir del bucle una vez encontrada la casilla
                 }
             }
         }
-        return true; // Indica que el evento ha sido manejado
+        repaint(); // Vuelve a dibujar el applet
+        return true;
     }
 }

@@ -1,13 +1,13 @@
 package Tercera.Ejercicio6;
 
-import java.awt.Rectangle;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
+public class Casilla extends Rectangle {
 
-public class Casilla extends Rectangle{
-    public static final int DIM = 60; // Dimensiones de la casilla
+    public static final int DIM = 85; // Dimensiones de la casilla
     int valor; // Valor de la casilla
     Color color; // Color de la casilla
 
@@ -17,13 +17,14 @@ public class Casilla extends Rectangle{
         this.valor = valor; // Establece el valor de la casilla
     }
 
-    public void paint(Graphics g){
-        g.setColor(Color.BLACK); // Establece el color del borde
+    public void paint(Graphics g) {
+        g.setColor(Color.black); // Establece el color del borde
         g.drawRect(x, y, width, height); // Dibuja el borde de la casilla
-        g.setFont(new Font("TimesRoman", Font.PLAIN, 24)); // Establece la fuente
+        g.setFont(new Font("TimesRoman", Font.BOLD, 24)); // Establece la fuente
         g.setColor(color); // Establece el color de la casilla
-        g.drawString("" + valor, x+20, y+20); // Dibuja el valor de la casilla
-        
+        g.fillOval(x + 5, y + 5, width - 10, height - 10); // Dibuja la casilla
+        g.setColor(Color.WHITE); // Establece el color del texto
+        g.drawString(String.valueOf(valor), x + 30, y + 50); // Dibuja el valor de la casilla
+
     }
 }
-    

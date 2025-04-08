@@ -24,7 +24,7 @@ public class Casilla extends Rectangle {
         g.setColor(color); // Establece el color de la casilla
         g.fillOval(x + 5, y + 5, width - 10, height - 10); // Dibuja la casilla
         g.setColor(Color.WHITE); // Establece el color del texto
-        g.drawString(String.valueOf(valor), x + 30, y + 50); // Dibuja el valor de la casilla
+        g.drawString(String.valueOf(valor), x + 35, y + 50); // Dibuja el valor de la casilla
 
     }
 }

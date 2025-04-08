@@ -1,11 +1,15 @@
 package Tercera.Ejercicio6;
 
 import java.applet.Applet;
+import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Panel;
 import java.util.ArrayList;
+
 
 public class Ruleta extends Applet {
 
@@ -19,10 +23,16 @@ public class Ruleta extends Applet {
     Ficha activa; // Ficha activa
     Image imagenFicha[]; // Imagen de la ficha
     ArrayList<Ficha> fichas[]; // ArrayList de fichas
+    Button boton; // Botón para iniciar el juego
+    int numeroSuerte; // Número de la suerte
+    int jugadas[]; // Ultimas jugadas
 
     public void init() {
         imagen = this.createImage(1920, 1080); // Crea la imagen del tablero
         noseve = imagen.getGraphics(); // Obtiene los gráficos de la imagen
+
+        setup();
+
 
         casillas = new Casilla[FILAS][COLUMNAS]; // Inicializa la matriz de casillas
         java.util.ArrayList<Integer> lRojos = new java.util.ArrayList<>(); // Lista para almacenar los números de las casillas
@@ -52,19 +62,33 @@ public class Ruleta extends Applet {
         // Inicializa el array de fichas
         fichas = new ArrayList[NUMJUGADAS]; // Inicializa el array de fichas
 
-        // Crea las fichas
         for (int i = 0; i < NUMJUGADAS; i++) {
-            fichas[i] = new ArrayList<Ficha>(); // Inicializa el ArrayList de fichas
-            for (int j = 0; j < NUMJUGADAS; j++) {
-                // Añado las fichas en 1 columna de 10 filas
-                fichas[i].add(new Ficha((i * Ficha.DIM) + 30, (j * Ficha.DIM) + 50, valores[i], imagenFicha[i])); // Crea una ficha
-            }
+            fichas[i] = new ArrayList<Ficha>(); // Crea una nueva lista de fichas
+            fichas[i].add(new Ficha(400, 50 + (i * Ficha.DIM), i, imagenFicha[i])); // Añade una ficha a la lista
         }
-
+        // Inicializo jugadas
+        jugadas = new int[NUMJUGADAS]; // Inicializa el array de jugadas
 
 
         // Establece el tamaño del applet
         this.setSize(1920, 1080); // Establece el tamaño del applet
+    }
+
+    private void setup() {
+        Panel panel = new Panel(); // Crea un nuevo panel
+        boton = new Button("Iniciar Juego"); // Crea un nuevo botón
+        panel.add(boton); // Añade el botón al panel
+        this.setLayout(new BorderLayout()); // Establece el diseño del applet
+        this.setBackground(Color.green.darker()); // Establece el color de fondo del applet
+        this.add("North", panel); // Añade el panel al applet
+        this.setSize(1920, 1080); // Establece el tamaño del applet
+        this.setVisible(true); // Hace visible el applet
+        this.setFocusable(true); // Establece el applet como enfocable
+        this.requestFocus();
+
+        
+
+        
     }
 
     public void update(Graphics g) {
@@ -81,12 +105,14 @@ public class Ruleta extends Applet {
                 casillas[i][j].paint(noseve); // Dibuja cada casilla en el tablero
             }
         }
+        // Efecto de múltiples fichas con desplazamiento
         for (int i = 0; i < NUMJUGADAS; i++) {
             for (int j = 0; j < fichas[i].size(); j++) {
                 fichas[i].get(j).paint(noseve, this); // Dibuja cada ficha en el tablero
             }
         }
-
+        
+        
         g.drawImage(imagen, 0, 0, this); // Dibuja la imagen del tablero en el applet
     }
 
@@ -97,12 +123,15 @@ public class Ruleta extends Applet {
                 for (int j = 0; j < fichas[i].size(); j++) {
                     if (fichas[i].get(j).contains(x, y)) { // Comprueba si el clic está dentro de la ficha
                         activa = fichas[i].get(j); // Establece la ficha activa
-                        return true;
+                        if (Math.abs(activa.x - 400) <= 20 && Math.abs(activa.y - (50 + i * Ficha.DIM)) <= 20) // Comprueba si la ficha está en su posición original
+                        {
+                            fichas[i].add(new Ficha(activa.x, activa.y, activa.precio, activa.fichaImage)); // Añade la ficha activa a la lista 
+                            return true; // Sale del método si se ha hecho clic en una ficha
+                        }
                     }
                 }
             }
         }
-        
 
         return false;
     }
@@ -119,22 +148,25 @@ public class Ruleta extends Applet {
     public boolean mouseUp(Event e, int x, int y) {
         // Comprueba si se ha soltado el ratón sobre una casilla
         if (activa != null) {
-            for (int i = 0; i < FILAS; i++) {
-                for (int j = 0; j < COLUMNAS; j++) {
-                    if (casillas[i][j].contains(x, y)) { // Comprueba si el clic está dentro de la casilla
-                        fichas[activa.precio].add(new Ficha(casillas[i][j].x, casillas[i][j].y, activa.precio, activa.fichaImage)); // Añade la ficha a la casilla
-                        fichas[activa.precio].remove(activa); // Elimina la ficha activa de su lista
-                        activa = null; // Establece la ficha activa a null
-                        return true; // Sale del método si se ha soltado sobre una casilla
-                    }
-                }
-            }
-            activa = null; // Establece la ficha activa a null si no se ha soltado sobre una casilla
+            activa.cargarApostados(casillas); // Carga las casillas apostadas por la ficha activa
+            activa = null; // Establece la ficha activa a null
             repaint(); // Vuelve a dibujar el applet
+
         }
         return true;
     }
 
+    public boolean action(Event e, Object o) {
+        // Comprueba si se ha hecho clic en el botón
+        if (e.target instanceof Button) {
 
+            this.jugadas = new int[NUMJUGADAS]; // Inicializa el array de jugadas
+            for (int i = 0; i < NUMJUGADAS; i++) {
+                this.jugadas[i] = (int)(Math.random() * 37); // Genera un número aleatorio entre 0 y 36 para cada jugada
+            }
 
+            return true;
+        }
+        return true;
+    }
 }

@@ -2,6 +2,7 @@ package Tercera.Ejercicio7;
 
 
 import java.applet.Applet;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -43,6 +44,7 @@ public class Casilla extends Rectangle{
         } else { // Si la casilla no es visible
             g.drawImage(reverso, x, y, width, height, applet); // Dibuja la imagen del reverso de la casilla
         }
-        
+        g.setColor(Color.BLACK); // Establece el color de la casilla
+        g.drawRect(x, y, width, height); // Dibuja el borde de la casilla
     }
 }

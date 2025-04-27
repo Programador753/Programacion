@@ -42,12 +42,16 @@ public class Carta extends Rectangle {
         g.drawImage(imagen, x, y, ANCHO, ALTO, null);
     }
 
-    public void update(int PosX, int PosY) { // Metodo para mover las cartas 
-
-        this.x = PosX;
-        this.y = PosY;
+    public boolean contains(int x, int y) {
+        return this.x <= x && x <= this.x + ANCHO && this.y <= y && y <= this.y + ALTO;
     }
 
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    
 
 }
 

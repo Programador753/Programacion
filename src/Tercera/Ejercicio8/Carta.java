@@ -50,8 +50,5 @@ public class Carta extends Rectangle {
         this.x = x;
         this.y = y;
     }
-
-    
-
 }
 

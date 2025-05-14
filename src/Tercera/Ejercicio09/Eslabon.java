@@ -1,18 +1,14 @@
 package Tercera.Ejercicio09;
 
 import java.applet.Applet;
+import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 
 public class Eslabon extends Rectangle{
     public static final int TAM = 15; // el tamaño
-    public static final int ARRIBA = 1;
-    public static final int ABAJO = 2;
-    public static final int DERECHO = 3;
-    public static final int IZQUIERDA = 4;
     private int direccion; // la encapsulamos
-    
     Image imagen;
     
     public Eslabon(Image img, int x, int y, int direccion){
@@ -21,6 +17,7 @@ public class Eslabon extends Rectangle{
         this.direccion = direccion;
     
     }
+    
 
     public int getDireccion() {
         return direccion;
@@ -31,24 +28,25 @@ public class Eslabon extends Rectangle{
     }
 
     public void paint(Graphics g, Applet a){ //Dibujamos el eslabon
-        g.drawImage(imagen, x, y, width, height, a);              
-    }
+        g.drawImage(imagen, x, y, width, height, a);
 
+    }
 
     public void update(){  // Método para cambiar la posición del eslabon
     switch (direccion) {
-        case ARRIBA: 
+        case Event.UP: 
             y -= TAM;
             break;
-        case ABAJO:
+        case Event.DOWN:
             y += TAM;
             break;
-        case DERECHO:
+        case Event.RIGHT:
             x += TAM;
             break;
-        case IZQUIERDA:
+        case Event.LEFT:
             x -= TAM;
             break;
         }
     }
+    
 }

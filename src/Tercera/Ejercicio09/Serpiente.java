@@ -5,21 +5,40 @@ import java.applet.Applet;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.awt.Graphics;
+import java.awt.Event;
+
 
 public class Serpiente {
     ArrayList<Eslabon> eslabones; // Declaramos la lista de eslabones
-    
+
     public Serpiente(Image img){ // Constructor de la serpiente
         eslabones = new ArrayList<Eslabon>();  // Inicializamos la lista de eslabones
         for(int i = 0; i < 10; i++){ // Creamos 10 eslabones
-            eslabones.add(new Eslabon(img, 200 - (Eslabon.TAM * i), 100, Eslabon.DERECHO)); // Creamos el eslabon
-
+            eslabones.add(new Eslabon(img, 200 - (Eslabon.TAM * i), 100, Event.RIGHT)); // Creamos el eslabon
         }
     }
 
-    public void paint(Graphics g, Applet a){ // Método para dibujar la serpiente
-        for(Eslabon eslabon : eslabones){ // Recorremos la lista de eslabones
-            eslabon.paint(g, a); // Dibujamos el eslabon
+    public void paint(Graphics g, Applet a) { // Sobrescribimos el método paint
+        for (Eslabon eslabon : eslabones) { // Dibujamos la serpiente
+            eslabon.paint(g, a);
+        }
+    }
+   
+    public void agregarEslabon(Image img){ // Método para agregar un eslabon
+        int direccion = ultimoEslabon().getDireccion(); // Obtenemos la dirección del último eslabon
+        switch (direccion) { // Cambiamos la dirección del eslabon
+            case Event.UP:
+                eslabones.add(new Eslabon(img, (int) ultimoEslabon().getX(), (int) ultimoEslabon().getY() + Eslabon.TAM, direccion));
+                break;
+            case Event.DOWN:
+                eslabones.add(new Eslabon(img, (int) ultimoEslabon().getX(), (int) ultimoEslabon().getY() - Eslabon.TAM, direccion));
+                break;
+            case Event.RIGHT:
+                eslabones.add(new Eslabon(img, (int) ultimoEslabon().getX() - Eslabon.TAM, (int) ultimoEslabon().getY(), direccion));
+                break;
+            case Event.LEFT:
+                eslabones.add(new Eslabon(img, (int) ultimoEslabon().getX() + Eslabon.TAM, (int) ultimoEslabon().getY(), direccion));
+                break;
         }
     }
 
@@ -39,8 +58,9 @@ public class Serpiente {
         for(Eslabon eslabon : eslabones){ // Recorremos la lista de eslabones
             eslabon.update(); // Actualizamos el eslabon
         }
+        moverEslabon(); // Movemos el eslabon
     }
-    
+        
     public void moverEslabon(){ // Método para mover el eslabon
         for(int i = eslabones.size() - 1; i > 0; i--){ // Recorremos la lista de eslabones
             Eslabon eslabon = eslabones.get(i); // Obtenemos el eslabon
@@ -48,6 +68,5 @@ public class Serpiente {
             eslabon.setDireccion(anterior.getDireccion()); // Cambiamos la dirección del eslabon
         }
     }
-
 
 }

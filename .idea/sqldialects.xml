@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/../BasesDatos2024_2025/sql/U5A1 Consultas Basicas videoclub.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/../BasesDatos2024_2025/sql/videoclub.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/../BasesDatos2024_2025/sql/voluntariado_con_datos.sql" dialect="MySQL" />
     <file url="PROJECT" dialect="MySQL" />
   </component>
 </project>
